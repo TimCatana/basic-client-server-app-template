@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap
+  namespace: app
+data:
+  # add configs (usually ENV variables) here in form <config-name>:<value>
+  

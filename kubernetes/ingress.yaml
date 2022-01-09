@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: app
+  annotations:
+    kubernetes.io/ingress.class: "nginx"    
+    cert-manager.io/issuer: "app-letsencrypt-staging" # for free ssl certificate. needs configuration
+spec:
+  # Later on we can add a default backend
+  rules:
+  - host: # client domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-client-service
+            port:
+              number: 80 # 80 and 443 are ingress default ports, so don't change this unless you know what your doing
+  - host: # server domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-server-service
+            port:
+              number: 80 # 80 and 443 are ingress default ports, so don't change this unless you know what your doing

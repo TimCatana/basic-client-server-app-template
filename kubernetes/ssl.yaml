@@ -1,0 +1,20 @@
+# see this: https://jmrobles.medium.com/free-ssl-certificate-for-your-kubernetes-cluster-with-rancher-2cf6559adeba
+
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-prod # use letsencrypt-prod for production as its more descriptive. Use this name when using the test server URL (see below)
+  namespace: app
+spec:
+  acme:
+       # The ACME server URL
+    server: https://acme-staging-v02.api.letsencrypt.org/directory # https://acme-v02.api.letsencrypt.org/directory <- only use this once the test url (the one currently set) works so your ip doesn't get blocked
+    email: # your email
+       # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-prod
+       # Enable the HTTP-01 challenge provider
+    solvers:
+    - http01:
+        ingress:
+          name: app-ingress

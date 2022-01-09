@@ -1,0 +1,15 @@
+{
+  "name": "basic-tempate",
+  "version": "1.0.0",
+  "description": "template app. React frontend and node backend",
+  "author": "<your name>",
+  "license": "MIT",
+  "scripts": {
+    "backend": "cd backend && yarn run start",
+    "frontend": "cd frontend && yarn run start",
+    "start": "concurrently \"yarn run backend\" \"yarn run frontend\""
+  },
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
+}

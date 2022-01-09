@@ -1,0 +1,13 @@
+Dockerfile
+.dockerignore
+.git
+.gitignore
+.gitlab
+
+node_modules
+
+backend/node_modules
+backend/.gitignore
+
+frontend/node_modules
+frontend/.gitignore

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-stateful-set
+  namespace: app
+spec:
+  replicas: 3
+  serviceName: mongo-service
+  selector:
+    matchLabels:
+      role: mongo
+  template:
+    metadata:
+      labels:
+        role: mongo
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mongo
+        image: mongo
+        command:
+          - "mongod"
+          - "--bind_ip_all"
+          - "--replSet"
+          - "MainRepSet"
+        ports:
+          - containerPort: 27017
+        volumeMounts:
+          - name: mongo-pv
+            mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-pv
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  namespace: app
+  labels:
+    name: mongo
+spec:
+  clusterIP: None
+  selector:
+    role: mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+
+# How to set it up: https://www.youtube.com/watch?v=W-lJX3_uE5I 
+# Other useful stuff https://www.youtube.com/watch?v=DE83o7SR0xY&t=0s
+# Connection URI format: mongodb://replicaset-first-worker.replicaset-service-name,replicaset-second-worker.replicaset-service-name, etc...
