@@ -1,16 +1,15 @@
 # Backend
 
 - Uses ExpressJS framework
-- Hardcoded to run on port 4400 (you need to change that)
 - I have included a `contest/test` route for the frontend to connect to (to ensure everything works)
-- Running on port `3000`
+- Running on port `4400`
 
 # Frontend
 
 - Uses React library
 - Created using `create-react-app`
 - I included a button that sends an http request to `<domain>:4400/contest/test`. You should see `got contest test` in your local machine console when clicked. This means it works
-- running on port `4400`
+- running on port `3000`
 
 # Docker
 
