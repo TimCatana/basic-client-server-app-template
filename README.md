@@ -35,8 +35,7 @@ beginning in root directory:
 yarn
 cd frontend
 yarn
-cd ..
-cd backend
+cd ../backend
 cd yarn
 cd ..
 yarn run start
